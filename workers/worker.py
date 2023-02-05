@@ -18,12 +18,13 @@ def task(schedule=None):
 
         def wrapper(*args, **kwargs):
             run_at = kwargs.pop('_schedule', timezone.now())
-            task = Task.objects.create(
+            task, _created = Task.object.get_or_create(
                 handler=handler,
-                args=json.dumps(args),
-                kwargs=json.dumps(kwargs),
-                run_at=run_at
             )
+            task.args=json.dumps(args),
+            task.kwargs=json.dumps(kwargs),
+            task.run_at=run_at
+            task.save()
 
             # return the task id in case needed for polling
             return task.pk

@@ -19,7 +19,7 @@ class Task(models.Model):
         (FAILED, 'Failed')
     )
 
-    handler = models.CharField(max_length=255, db_index=True)
+    handler = models.CharField(max_length=255, db_index=True, unique=True)
     args = models.TextField(blank=True)
     kwargs = models.TextField(blank=True)
     error = models.TextField(blank=True)
